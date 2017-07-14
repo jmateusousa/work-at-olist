@@ -1,0 +1,32 @@
+{% extends 'importcsv/base.html' %}
+
+{% block content %}
+        <div>
+          <h4><b>|-- Import a file .CSV</b></h4>
+          </br>
+          <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+              <input class="btn btn-default" type="file" name="myfile">
+              <button class="btn btn-default"  type="submit">Upload</button>
+          </form>
+          {% if uploaded_file_url %}
+            <p>File upload Sucessefull!! <span class="glyphicon glyphicon-refresh"></p>
+          {% endif %}
+          <h4><b>|-- Update or create a new channel</b></h4>
+          </br>
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="input-group col-md-3">
+                    <form action="{% url 'importcsv:importcategories' %}" method="post">
+                      {% csrf_token %}
+                      <input type="text" name="channel_name" id="channel_name" class="form-control" placeholder="Enter the channel name">
+                      <input class="btn btn-default" type="submit" value="Update/Create">
+                    </form>
+                </div>
+                {% if category_filter %}
+                  <p>Sucessefull!! <span class="glyphicon glyphicon-refresh"></p>
+                {% endif %}
+            </div>
+        </div>
+{% endblock content %}

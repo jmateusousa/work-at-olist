@@ -1,0 +1,45 @@
+{% extends 'importcsv/base.html' %}
+
+{% block content %}
+        <div>
+          <h3>|-- Channel /</h3>
+          {% if allchannel %}
+              <ul>
+              {% for channel in allchannel %}
+                  <li><b>{{ channel.name }} </b></li>
+              {% endfor %}
+              {% else %}
+                  <p>No channel are available.</p>
+          {% endif %}
+
+          <h3>|--  Channel / Category /</h3>
+          {% if allchannel %}
+              <ul>
+              {% for channel in allchannel %}
+                  <b>|--  {{ channel.name }} </b> -- {{ channel.description }}
+                  {% for name in channel.category_channel.all %}
+                        {% for sub in name.sub_category.all%}
+                          <p style="padding-left: 1.5em;">|-- {{ name }} / {{ sub }} /</p>
+                        {% endfor %}
+                  {% endfor %}
+              {% endfor %}
+              </ul>
+          {% else %}
+              <p>No channel/category are available.</p>
+          {% endif %}
+
+          <h3>|-- Only Category / SubCategory /</h3>
+          <ul>
+          {% if allchannel %}
+              {% for name in onlycs %}
+                    |-- {{ name }} /
+                    {% for subname in name.sub_category.all  %}
+                      <p style="padding-left: 1.5em;">|-- {{ subname }} /</p>
+                    {% endfor %}
+              {% endfor %}
+          {% endif %}
+          </ul>
+
+
+        </div>
+{% endblock content %}
